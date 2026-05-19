@@ -1,0 +1,12 @@
+login page
+
+accept username&password
+session store
+redirect to success page 
+logout button too
+
+
+python -m venv venv
+.\venv\Scripts\activate
+
+pip install flask
