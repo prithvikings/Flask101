@@ -1,0 +1,1 @@
+console.log("Hello, World! This is the script.js file.");

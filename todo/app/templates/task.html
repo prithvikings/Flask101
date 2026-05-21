@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %} My Flask To-Do App {% endblock %}
+
+{% block content %}
+
+<div class="task-box">
+    <h2>Your Tasks</h2>
+    <form action="{{url_for('task.add_tasks')}}" method="post" class="task-form">
+        <input type="text" name="title" placeholder="New Task">
+        <button type="submit" class="btn">Add Task</button>
+    </form>
+
+    {% if tasks %}
+    <form method="post" action="{{url_for('task.clear_tasks')}}">
+        <button type="submit" class="btn">Clear All Tasks</button>
+    </form>
+    <br>
+    <table class="task-table">
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Status</th>
+                <th>Change</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.index }}</td>
+                <td>{{ task.title }}</td>
+                <td>
+                    <span class="badge {{task.status|lower}}">
+                        {{task.status}}
+                    </span>
+                </td>
+                <td>
+                    <form method="post" action="{{url_for('task.toggle_status', task_id=task.id)}}">
+                        <button type="submit" class="btn-small">Toggle Status</button> 
+                    </form>
+                    <form method="post" action="{{ url_for('task.delete_task', task_id=task.id) }}" style="display:inline;">
+                        <button type="submit" class="btn">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No tasks yet. Add a task to get started!</p>
+    {% endif %}
+</div>
+    
+{% endblock %}
+
+{% endblock %}
